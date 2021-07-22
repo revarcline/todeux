@@ -20,6 +20,13 @@ defmodule TodeuxWeb.Router do
     live "/", PageLive, :index
   end
 
+  scope "/auth", TodeuxWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :request
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", TodeuxWeb do
   #   pipe_through :api
