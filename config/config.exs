@@ -7,6 +7,12 @@
 # General application configuration
 use Mix.Config
 
+config :todeux, Todeaux.Repo,
+  database: "todeux_repo",
+  username: "user",
+  password: "pass",
+  hostname: "localhost"
+
 config :todeux,
   ecto_repos: [Todeux.Repo]
 
