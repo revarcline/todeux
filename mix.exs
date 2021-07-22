@@ -20,7 +20,7 @@ defmodule Todeux.MixProject do
   def application do
     [
       mod: {Todeux.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :ueberauth]
     ]
   end
 
