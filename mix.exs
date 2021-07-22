@@ -20,7 +20,7 @@ defmodule Todeux.MixProject do
   def application do
     [
       mod: {Todeux.Application, []},
-      extra_applications: [:logger, :runtime_tools, :oauth2]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -47,7 +47,7 @@ defmodule Todeux.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:oauth2, "~> 2.0"}
+      {:ueberauth, "~> 0.6"}
     ]
   end
 
