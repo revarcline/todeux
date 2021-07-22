@@ -1,11 +1,9 @@
 defmodule TodeuxWeb.AuthController do
-  import Plug.Conn
-  import Phoenix.Controller
+  use TodeuxWeb, :controller
+  plug Ueberauth
 
   alias TodeuxWeb.Router.Helpers, as: Routes
-  alias Todeux.User
-
-  def init(opts), do: opts
+  alias Todeux.{User, Repo}
 
   def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
     conn
@@ -13,13 +11,13 @@ defmodule TodeuxWeb.AuthController do
     |> redirect(to: "/")
   end
 
-  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
+  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, params) do
     user_params = %{
       first_name: auth.info.first_name,
       last_name: auth.info.last_name,
       email: auth.info.email,
       picture: auth.info.image,
-      provider: "google"
+      provider: params["provider"]
     }
 
     changeset = User.changeset(%User{}, user_params)
@@ -29,12 +27,22 @@ defmodule TodeuxWeb.AuthController do
         conn
         |> put_flash(:info, "Thank you for signing in!")
         |> put_session(:user_id, user.id)
-        |> redirect(to: Routes.lobby_path(conn, :index))
+        |> redirect(to: Routes.page_path(conn, :index))
 
       {:error, _reason} ->
         conn
         |> put_flash(:error, "Error signing in")
         |> redirect(to: Routes.page_path(conn, :index))
+    end
+  end
+
+  defp insert_or_update_user(changeset) do
+    case Repo.get_by(User, email: changeset.changes.email) do
+      nil ->
+        Repo.insert(changeset)
+
+      user ->
+        {:ok, user}
     end
   end
 end
