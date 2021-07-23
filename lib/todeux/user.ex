@@ -8,6 +8,7 @@ defmodule Todeux.User do
     field :last_name, :string
     field :picture, :string
     field :provider, :string
+    field :token, :string
 
     timestamps()
   end
