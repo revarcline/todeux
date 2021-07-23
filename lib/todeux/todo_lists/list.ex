@@ -4,6 +4,7 @@ defmodule Todeux.TodoLists.List do
 
   schema "lists" do
     field :name, :string
+    has_many :todos, Todeux.TodoLists.Todo
 
     timestamps()
   end

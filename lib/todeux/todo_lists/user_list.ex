@@ -3,8 +3,8 @@ defmodule Todeux.TodoLists.UserList do
   import Ecto.Changeset
 
   schema "user_lists" do
-    field :list_id, :id
-    field :user_id, :id
+    belongs_to :user, Todeux.Accounts.User
+    belongs_to :list, Todeux.TodoLists.List
 
     timestamps()
   end

@@ -5,8 +5,8 @@ defmodule Todeux.TodoLists.Todo do
   schema "todos" do
     field :done, :boolean, default: false
     field :name, :string
-    field :list_id, :id
-    field :created_by, :id
+    belongs_to :list, Todeux.TodoLists.List
+    belongs_to :user, Todeux.Accounts.User
 
     timestamps()
   end
