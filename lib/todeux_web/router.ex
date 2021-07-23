@@ -26,9 +26,8 @@ defmodule TodeuxWeb.Router do
   scope "/auth", TodeuxWeb do
     pipe_through :browser
 
-    # need to reimplement provider callbacks
-    # get "/:provider", AuthController, :request
-    # get "/:provider/callback", AuthController, :request
+    get "/:provider", UserOauthController, :request
+    get "/:provider/callback", UserOauthController, :request
   end
 
   # Other scopes may use custom stacks.
