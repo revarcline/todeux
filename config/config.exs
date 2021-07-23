@@ -70,8 +70,9 @@ config :phoenix, :json_library, Jason
 
 config :ueberauth, Ueberauth,
   providers: [
-    github: {Ueberauth.Strategy.Github, []},
-    google: {Ueberauth.Strategy.Google, []}
+    github: {Ueberauth.Strategy.Github, [default_scope: "user"]},
+    google:
+      {Ueberauth.Strategy.Google, [default_scope: "email profile", allow_private_emails: true]}
   ]
 
 config :ueberauth, Ueberauth.Strategy.Google.Oauth,
@@ -79,7 +80,7 @@ config :ueberauth, Ueberauth.Strategy.Google.Oauth,
   client_secret: google_client_secret,
   redirect_uri: google_redirect_uri
 
-config :ueberauth, Ueberauth.Strategy.Github.Oauth,
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
   client_id: github_client_id,
   client_secret: github_client_secret,
   redirect_uri: github_redirect_uri

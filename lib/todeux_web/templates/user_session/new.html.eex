@@ -13,6 +13,14 @@
   <%= label f, :password %>
   <%= password_input f, :password, required: true %>
 
+  <div>
+<%= link "Log in with your google account", to: Routes.user_oauth_path(@conn, :request, "google") %>
+  </div>
+
+  <div>
+<%= link "Log in with your github account", to: Routes.user_oauth_path(@conn, :request, "github") %>
+  </div>
+
   <%= label f, :remember_me, "Keep me logged in for 60 days" %>
   <%= checkbox f, :remember_me %>
 
