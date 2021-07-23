@@ -122,4 +122,61 @@ defmodule Todeux.TodoListsTest do
       assert %Ecto.Changeset{} = TodoLists.change_todo(todo)
     end
   end
+
+  describe "user_lists" do
+    alias Todeux.TodoLists.UserList
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def user_list_fixture(attrs \\ %{}) do
+      {:ok, user_list} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> TodoLists.create_user_list()
+
+      user_list
+    end
+
+    test "list_user_lists/0 returns all user_lists" do
+      user_list = user_list_fixture()
+      assert TodoLists.list_user_lists() == [user_list]
+    end
+
+    test "get_user_list!/1 returns the user_list with given id" do
+      user_list = user_list_fixture()
+      assert TodoLists.get_user_list!(user_list.id) == user_list
+    end
+
+    test "create_user_list/1 with valid data creates a user_list" do
+      assert {:ok, %UserList{} = user_list} = TodoLists.create_user_list(@valid_attrs)
+    end
+
+    test "create_user_list/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = TodoLists.create_user_list(@invalid_attrs)
+    end
+
+    test "update_user_list/2 with valid data updates the user_list" do
+      user_list = user_list_fixture()
+      assert {:ok, %UserList{} = user_list} = TodoLists.update_user_list(user_list, @update_attrs)
+    end
+
+    test "update_user_list/2 with invalid data returns error changeset" do
+      user_list = user_list_fixture()
+      assert {:error, %Ecto.Changeset{}} = TodoLists.update_user_list(user_list, @invalid_attrs)
+      assert user_list == TodoLists.get_user_list!(user_list.id)
+    end
+
+    test "delete_user_list/1 deletes the user_list" do
+      user_list = user_list_fixture()
+      assert {:ok, %UserList{}} = TodoLists.delete_user_list(user_list)
+      assert_raise Ecto.NoResultsError, fn -> TodoLists.get_user_list!(user_list.id) end
+    end
+
+    test "change_user_list/1 returns a user_list changeset" do
+      user_list = user_list_fixture()
+      assert %Ecto.Changeset{} = TodoLists.change_user_list(user_list)
+    end
+  end
 end
