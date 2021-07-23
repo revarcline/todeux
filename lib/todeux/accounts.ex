@@ -346,4 +346,16 @@ defmodule Todeux.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  def fetch_or_create_user(attrs) do
+    case get_user_by_email(attrs) do
+      %User{} = user ->
+        {:ok, user}
+
+      _ ->
+        %User{}
+        |> User.registration_changeset(attrs)
+        |> Repo.insert()
+    end
+  end
 end
