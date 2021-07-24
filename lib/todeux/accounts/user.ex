@@ -35,7 +35,7 @@ defmodule Todeux.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :username, :provider])
     |> validate_email()
     |> validate_password(opts)
   end
@@ -104,6 +104,14 @@ defmodule Todeux.Accounts.User do
     |> cast(attrs, [:password])
     |> validate_confirmation(:password, message: "does not match password")
     |> validate_password(opts)
+  end
+
+  @doc """
+  A user changeset for changing the username.
+  """
+  def username_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:username])
   end
 
   @doc """
