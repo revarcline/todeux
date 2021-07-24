@@ -7,6 +7,7 @@ defmodule Todeux.TodoLists do
   alias Todeux.Repo
 
   alias Todeux.TodoLists.List
+  alias Todeux.Accounts.User
 
   @doc """
   Returns the list of lists.
@@ -21,6 +22,19 @@ defmodule Todeux.TodoLists do
     Repo.all(List)
   end
 
+  @doc """
+  Returns the list of all lists for a given user.
+
+  ## Examples
+
+  iex> list_user_lists(%User{})
+      [%List{}, ...]
+
+  """
+
+  def list_user_lists(%User{}) do
+    Repo.all(List)
+  end
   @doc """
   Gets a single list.
 
@@ -198,99 +212,3 @@ defmodule Todeux.TodoLists do
     Todo.changeset(todo, attrs)
   end
 
-  alias Todeux.TodoLists.UserList
-
-  @doc """
-  Returns the list of user_lists.
-
-  ## Examples
-
-      iex> list_user_lists()
-      [%UserList{}, ...]
-
-  """
-  def list_user_lists do
-    Repo.all(UserList)
-  end
-
-  @doc """
-  Gets a single user_list.
-
-  Raises `Ecto.NoResultsError` if the User list does not exist.
-
-  ## Examples
-
-      iex> get_user_list!(123)
-      %UserList{}
-
-      iex> get_user_list!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_user_list!(id), do: Repo.get!(UserList, id)
-
-  @doc """
-  Creates a user_list.
-
-  ## Examples
-
-      iex> create_user_list(%{field: value})
-      {:ok, %UserList{}}
-
-      iex> create_user_list(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_user_list(attrs \\ %{}) do
-    %UserList{}
-    |> UserList.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
-  Updates a user_list.
-
-  ## Examples
-
-      iex> update_user_list(user_list, %{field: new_value})
-      {:ok, %UserList{}}
-
-      iex> update_user_list(user_list, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_user_list(%UserList{} = user_list, attrs) do
-    user_list
-    |> UserList.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a user_list.
-
-  ## Examples
-
-      iex> delete_user_list(user_list)
-      {:ok, %UserList{}}
-
-      iex> delete_user_list(user_list)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_user_list(%UserList{} = user_list) do
-    Repo.delete(user_list)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking user_list changes.
-
-  ## Examples
-
-      iex> change_user_list(user_list)
-      %Ecto.Changeset{data: %UserList{}}
-
-  """
-  def change_user_list(%UserList{} = user_list, attrs \\ %{}) do
-    UserList.changeset(user_list, attrs)
-  end
-end

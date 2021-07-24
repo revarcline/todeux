@@ -9,3 +9,9 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+alias Todeux.Accounts.User
+alias Todeux.TodoLists.List
+alias Todeux.TodoLists.Todo
+
+# users
+Todeux.Repo.insert!(%)
