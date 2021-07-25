@@ -14,4 +14,18 @@ alias Todeux.TodoLists.List
 alias Todeux.TodoLists.Todo
 
 # users
-Todeux.Repo.insert!(%)
+Todeux.Repo.insert!(%User{
+  email: "first_user@internet.com",
+  username: "First User",
+  provider: nil,
+  password: "password"
+})
+
+Todeux.Repo.insert!(%User{
+  email: "second_user@internet.com",
+  username: "Second User",
+  provider: nil,
+  password: "password"
+})
+
+# lists

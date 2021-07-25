@@ -35,6 +35,7 @@ defmodule Todeux.TodoLists do
   def list_user_lists(%User{}) do
     Repo.all(List)
   end
+
   @doc """
   Gets a single list.
 
@@ -53,19 +54,19 @@ defmodule Todeux.TodoLists do
 
   @doc """
   Creates a list.
-
   ## Examples
 
-      iex> create_list(%{field: value})
+      iex> create_list(%User{}, %{field: value})
       {:ok, %List{}}
 
-      iex> create_list(%{field: bad_value})
+      iex> create_list(%User{}, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_list(attrs \\ %{}) do
+  def create_list(%User{} = user, attrs \\ %{}) do
     %List{}
     |> List.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:user, user)
     |> Repo.insert()
   end
 
@@ -159,9 +160,11 @@ defmodule Todeux.TodoLists do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_todo(attrs \\ %{}) do
+  def create_todo(%User{} = user, %List{} = list, attrs \\ %{}) do
     %Todo{}
     |> Todo.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:user, user)
+    |> Ecto.Changeset.put_assoc(:list, list)
     |> Repo.insert()
   end
 
@@ -211,4 +214,4 @@ defmodule Todeux.TodoLists do
   def change_todo(%Todo{} = todo, attrs \\ %{}) do
     Todo.changeset(todo, attrs)
   end
-
+end
