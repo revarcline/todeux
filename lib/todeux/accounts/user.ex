@@ -12,6 +12,7 @@ defmodule Todeux.Accounts.User do
     field :confirmed_at, :naive_datetime
 
     many_to_many(:lists, Todeux.TodoLists.List, join_through: Todeux.TodoLists.UserList)
+    has_many(:created_lists, Todeux.TodoLists.List)
 
     timestamps()
   end
