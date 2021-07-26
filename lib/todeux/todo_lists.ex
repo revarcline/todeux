@@ -4,6 +4,7 @@ defmodule Todeux.TodoLists do
   """
 
   import Ecto.Query, warn: false
+  alias Ecto.Changeset
   alias Todeux.Repo
 
   alias Todeux.TodoLists.List
@@ -66,7 +67,7 @@ defmodule Todeux.TodoLists do
   def create_list(%User{} = user, attrs \\ %{}) do
     %List{}
     |> List.changeset(attrs)
-    |> Ecto.Changeset.put_assoc(:user, user)
+    |> Changeset.put_assoc(:user, user)
     |> Repo.insert()
   end
 
@@ -163,8 +164,8 @@ defmodule Todeux.TodoLists do
   def create_todo(%User{} = user, %List{} = list, attrs \\ %{}) do
     %Todo{}
     |> Todo.changeset(attrs)
-    |> Ecto.Changeset.put_assoc(:user, user)
-    |> Ecto.Changeset.put_assoc(:list, list)
+    |> Changeset.put_assoc(:user, user)
+    |> Changeset.put_assoc(:list, list)
     |> Repo.insert()
   end
 
