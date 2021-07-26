@@ -12,7 +12,7 @@ defmodule Todeux.TodoLists.Todo do
   end
 
   @doc false
-  def changeset(todo, attrs) do
+  def changeset(todo, attrs \\ %{}) do
     todo
     |> cast(attrs, [:name, :done])
     |> validate_required([:name, :done])

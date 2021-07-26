@@ -11,7 +11,7 @@ defmodule Todeux.TodoLists.List do
   end
 
   @doc false
-  def changeset(list, attrs) do
+  def changeset(list, attrs \\ %{}) do
     list
     |> cast(attrs, [:name])
     |> validate_required([:name])
