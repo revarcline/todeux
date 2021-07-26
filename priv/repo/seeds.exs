@@ -12,7 +12,6 @@
 alias Todeux.Accounts.User
 alias Todeux.Accounts
 alias Todeux.TodoLists.List
-alias Todeux.TodoLists.Todo
 alias Todeux.TodoLists
 alias Todeux.Repo
 
@@ -31,8 +30,13 @@ Accounts.register_user(%{
   password: "longerpassword"
 })
 
-user_one = Repo.get!(User, 1)
-user_two = Repo.get!(User, 2)
+user_one =
+  User
+  |> Repo.get!(1)
+
+user_two =
+  User
+  |> Repo.get!(2)
 
 # lists
 
@@ -52,9 +56,84 @@ TodoLists.create_list(user_two, %{
   name: "fourth list"
 })
 
-first_list = Repo.get!(List, 1)
-second_list = Repo.get!(List, 2)
-third_list = Repo.get!(List, 3)
-fourth_list = Repo.get!(List, 4)
+first_list =
+  List
+  |> Repo.get!(1)
+  |> Repo.preload(:user)
 
-# todos
+second_list =
+  List
+  |> Repo.get!(2)
+  |> Repo.preload(:user)
+
+third_list =
+  List
+  |> Repo.get!(3)
+  |> Repo.preload(:user)
+
+fourth_list =
+  List
+  |> Repo.get!(3)
+  |> Repo.preload(:user)
+
+# todolists!
+
+TodoLists.create_todo(first_list.user, first_list, %{
+  name: "Eat breakfast",
+  done: false
+})
+
+TodoLists.create_todo(first_list.user, first_list, %{
+  name: "Eat lunch",
+  done: false
+})
+
+TodoLists.create_todo(first_list.user, first_list, %{
+  name: "Eat dinner",
+  done: false
+})
+
+TodoLists.create_todo(second_list.user, second_list, %{
+  name: "Fly in a plane",
+  done: false
+})
+
+TodoLists.create_todo(second_list.user, second_list, %{
+  name: "Ride a bike",
+  done: false
+})
+
+TodoLists.create_todo(second_list.user, second_list, %{
+  name: "Run a mile",
+  done: false
+})
+
+TodoLists.create_todo(third_list.user, third_list, %{
+  name: "Figure out Ecto associations",
+  done: false
+})
+
+TodoLists.create_todo(third_list.user, third_list, %{
+  name: "Get a grip on LiveView",
+  done: false
+})
+
+TodoLists.create_todo(third_list.user, third_list, %{
+  name: "Create halfway decent controller actions",
+  done: false
+})
+
+TodoLists.create_todo(fourth_list.user, fourth_list, %{
+  name: "Do some dishes",
+  done: false
+})
+
+TodoLists.create_todo(fourth_list.user, fourth_list, %{
+  name: "Clean the rug",
+  done: false
+})
+
+TodoLists.create_todo(fourth_list.user, fourth_list, %{
+  name: "Sift the cat litter",
+  done: false
+})
