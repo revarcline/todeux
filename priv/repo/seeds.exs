@@ -10,52 +10,51 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 alias Todeux.Accounts.User
+alias Todeux.Accounts
 alias Todeux.TodoLists.List
 alias Todeux.TodoLists.Todo
+alias Todeux.TodoLists
 alias Todeux.Repo
 
 # users
-User.registration_changeset(%User{}, %{
+Accounts.register_user(%{
   email: "first_user@internet.com",
   username: "First User",
   provider: nil,
   password: "longerpassword"
 })
-|> Repo.insert!()
 
-User.registration_changeset(%User{}, %{
+Accounts.register_user(%{
   email: "second_user@internet.com",
   username: "Second User",
   provider: nil,
   password: "longerpassword"
 })
-|> Repo.insert!()
 
 user_one = Repo.get!(User, 1)
 user_two = Repo.get!(User, 2)
 
 # lists
 
-List.changeset(%List{}, %{
-  name: "first list",
-  user: user_one
+TodoLists.create_list(user_one, %{
+  name: "first list"
 })
-|> Repo.insert!()
 
-List.changeset(%List{}, %{
-  name: "second list",
-  user: user_one
+TodoLists.create_list(user_one, %{
+  name: "second list"
 })
-|> Repo.insert!()
 
-List.changeset(%List{}, %{
-  name: "third list",
-  user: user_two
+TodoLists.create_list(user_two, %{
+  name: "third list"
 })
-|> Repo.insert!()
 
-List.changeset(%List{}, %{
-  name: "fourth list",
-  user: user_two
+TodoLists.create_list(user_two, %{
+  name: "fourth list"
 })
-|> Repo.insert!()
+
+first_list = Repo.get!(List, 1)
+second_list = Repo.get!(List, 2)
+third_list = Repo.get!(List, 3)
+fourth_list = Repo.get!(List, 4)
+
+# todos
