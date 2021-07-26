@@ -12,20 +12,25 @@
 alias Todeux.Accounts.User
 alias Todeux.TodoLists.List
 alias Todeux.TodoLists.Todo
+alias Todeux.Repo
 
 # users
-Todeux.Repo.insert!(%User{
-  email: "first_user@internet.com",
-  username: "First User",
-  provider: nil,
-  password: "password"
-})
+Repo.insert!(
+  User.registration_changeset(%User{}, %{
+    email: "first_user@internet.com",
+    username: "First User",
+    provider: nil,
+    password: "longerpassword"
+  })
+)
 
-Todeux.Repo.insert!(%User{
-  email: "second_user@internet.com",
-  username: "Second User",
-  provider: nil,
-  password: "password"
-})
+Repo.insert!(
+  User.registration_changeset(%User{}, %{
+    email: "second_user@internet.com",
+    username: "Second User",
+    provider: nil,
+    password: "longerpassword"
+  })
+)
 
 # lists

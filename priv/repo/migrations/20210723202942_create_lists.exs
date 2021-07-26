@@ -3,10 +3,9 @@ defmodule Todeux.Repo.Migrations.CreateLists do
 
   def change do
     create table(:lists) do
-      add :name, :string
+      add(:name, :string)
 
       timestamps()
     end
-
   end
 end

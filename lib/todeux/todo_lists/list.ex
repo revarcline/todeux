@@ -5,6 +5,7 @@ defmodule Todeux.TodoLists.List do
   schema "lists" do
     field :name, :string
     has_many :todos, Todeux.TodoLists.Todo
+    belongs_to :created_by, Todeux.Accounts.User
     many_to_many(:users, Todeux.Accounts.User, join_through: Todeux.TodoLists.UserList)
 
     timestamps()

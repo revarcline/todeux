@@ -3,7 +3,7 @@ defmodule Todeux.Repo.Migrations.AddCreatedByToLists do
 
   def change do
     alter table(:lists) do
-      add(:created_by, references(:users, on_delete: :nothing))
+      add(:created_by, references(:users, on_delete: :delete_all, column: :id))
     end
 
     create(index(:lists, [:created_by]))
