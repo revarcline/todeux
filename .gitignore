@@ -35,3 +35,6 @@ npm-debug.log
 
 # secrets
 .envrc
+
+# hide my lil repl scratchpad
+scratch.ex

@@ -33,8 +33,10 @@ defmodule Todeux.TodoLists do
 
   """
 
-  def list_user_lists(%User{}) do
-    Repo.all(List)
+  def list_user_lists(%User{} = user) do
+    List
+    |> user_todolist_query(user)
+    |> Repo.all()
   end
 
   @doc """
@@ -214,5 +216,12 @@ defmodule Todeux.TodoLists do
   """
   def change_todo(%Todo{} = todo, attrs \\ %{}) do
     Todo.changeset(todo, attrs)
+  end
+
+  defp user_todolist_query(query, %User{id: user_id}) do
+    from(t in query,
+      where: t.user_id == ^user_id,
+      preload: [:user]
+    )
   end
 end

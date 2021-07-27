@@ -9,10 +9,10 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-alias Todeux.Accounts.User
 alias Todeux.Accounts
-alias Todeux.TodoLists.List
+alias Todeux.Accounts.User
 alias Todeux.TodoLists
+alias Todeux.TodoLists.List
 alias Todeux.Repo
 
 # users
