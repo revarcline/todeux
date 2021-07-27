@@ -8,6 +8,7 @@ defmodule Todeux.TodoLists do
   alias Todeux.Repo
 
   alias Todeux.TodoLists.List
+  alias Todeux.TodoLists.Todo
   alias Todeux.Accounts.User
 
   @doc """
@@ -133,6 +134,22 @@ defmodule Todeux.TodoLists do
   """
   def list_todos do
     Repo.all(Todo)
+  end
+
+  @doc """
+  Returns the list of a user's todos.
+
+  ## Examples
+
+      iex> list_todos(%User{})
+      [%Todo{}, ...]
+
+  """
+
+  def list_user_todos(%User{} = user) do
+    Todo
+    |> user_todolist_query(user)
+    |> Repo.all()
   end
 
   @doc """
